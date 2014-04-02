@@ -1,6 +1,6 @@
 {
   "name": "luo",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "luo ===",
   "main": "index.js",
   "scripts": {
@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/wilhelmmatilainen/luo/issues"
   },
-  "homepage": "https://github.com/wilhelmmatilainen/luo"
+  "homepage": "https://github.com/wilhelmmatilainen/luo",
+  "dependencies": {
+    "async": "^0.6.2",
+    "colors": "^0.6.2"
+  }
 }
