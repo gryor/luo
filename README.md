@@ -2,7 +2,7 @@ luo
 ===
 Builds C/C++ projects.
 
-* Ĉolored and parsed error report
+* Colored and parsed error report
 
 Example
 ===
