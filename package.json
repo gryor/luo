@@ -1,0 +1,27 @@
+{
+  "name": "luo",
+  "version": "0.0.0",
+  "description": "luo ===",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wilhelmmatilainen/luo.git"
+  },
+  "keywords": [
+    "luo",
+    "build",
+    "make",
+    "c",
+    "c++",
+    "gcc"
+  ],
+  "author": "Wilhelm Matilainen",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/wilhelmmatilainen/luo/issues"
+  },
+  "homepage": "https://github.com/wilhelmmatilainen/luo"
+}
