@@ -28,7 +28,20 @@ function Luo(Options) {
 				c: 'c',
 				cpp: 'cpp'
 			}
-		}
+		},
+		flags: {
+			c: {
+				always: ['-std=c11'],
+				release: ['-O3'],
+				debug: ['-g', '-Wall']
+			},
+			cpp: {
+				always: ['-std=c++11'],
+				release: ['-O3'],
+				debug: ['-g', '-Weffc++', '-Wall']
+			}
+		},
+		debug: true
 	};
 
 	function error(message) {
@@ -201,8 +214,8 @@ function Luo(Options) {
 
 	function compile(success, fail) {
 		readDirRecursive(options.path.source, function(content) {
-			mkdirs([options.path.build, options.path.build + '/.luo'].concat(content.directories.map(function(dir) {
-				return options.path.build + '/.luo/' + dir
+			mkdirs([options.path.build, '.luo'].concat(content.directories.map(function(dir) {
+				return '.luo/' + dir
 			})), function() {
 				getFilesByExtension(options.path.source, function(files) {
 					var parallel = [];
@@ -210,7 +223,7 @@ function Luo(Options) {
 					if (files[options.extension.source.c]) {
 						files[options.extension.source.c].forEach(function(file) {
 							parallel.push(function(callback) {
-								var params = ['-c', options.path.source + '/' + file, '-o', options.path.build + '/.luo/' + file + '.o'];
+								var params = ['-c', options.path.source + '/' + file, '-o', '.luo/' + file + '.o', '-std=c11', '-g', '-Wall'];
 
 								options.path.includes.forEach(function(path) {
 									params.push('-I' + path);
@@ -231,7 +244,7 @@ function Luo(Options) {
 
 						files[options.extension.source.cpp].forEach(function(file) {
 							parallel.push(function(callback) {
-								var params = ['-c', options.path.source + '/' + file, '-o', options.path.build + '/.luo/' + file + '.o'];
+								var params = ['-c', options.path.source + '/' + file, '-o', '.luo/' + file + '.o', '-std=c++11', '-g', '-Weffc++', '-Wall'];
 
 								options.path.includes.forEach(function(path) {
 									params.push('-I' + path);
@@ -259,7 +272,7 @@ function Luo(Options) {
 	}
 
 	function link(success, fail) {
-		getFilesByExtension(options.path.build + '/.luo', function(files) {
+		getFilesByExtension('.luo', function(files) {
 			var params = [];
 
 			options.libraries.forEach(function(lib) {
@@ -267,7 +280,7 @@ function Luo(Options) {
 			});
 
 			params = params.concat(files.o.map(function(path) {
-				return options.path.build + '/.luo/' + path;
+				return '.luo/' + path;
 			}));
 
 			params = params.concat(['-o', options.path.build + '/' + process.cwd().split('/').pop()]);
@@ -354,5 +367,6 @@ function Luo(Options) {
 	publishFunction(this, 'link', link);
 	publishFunction(this, 'build', build);
 }
+
 
 module.exports = new Luo();
